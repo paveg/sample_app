@@ -24,6 +24,17 @@ module SessionsHelper
     end
   end
 
+  # redirect to remembering URL
+  def redirect_back_or(default)
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url)
+  end
+
+  # save URL because try to access
+  def store_location
+    session[:forwarding_url] = request.url if request.get?
+  end
+
   # return true because user is logging
   def loggedin?
     !current_user.nil?
@@ -41,5 +52,10 @@ module SessionsHelper
     forget(current_user)
     session.delete(:user_id)
     @current_user = nil
+  end
+
+  # return ture because given user when loggedin
+  def current_user?(user)
+    user == current_user
   end
 end

@@ -135,3 +135,6 @@ Temporary Items
 
 # rubymine
 .idea
+
+# Ignore uploaded test images.
+/public/uploads
